@@ -1,0 +1,18 @@
+---
+- hosts: local
+  tasks:
+    - name: launch Worker Node on AWS cloud
+      ec2:
+        key_name: "k8s-worker-node_key-pair"
+        instance_type: "t2.micro"
+        image: ami-0f43fb012ca90d6ee
+        wait: yes
+        count: 2
+        # vpc_subnet_id: "subnet-xxxxxx"
+        group_id: sg-0fb37f836d6dd2ed4
+        # assign_public_ip: yes
+        region: "us-east-1"
+        state: present
+        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY') }}"
+        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_KEY') }}"
+        instance_tags: {"Name": "k8s-worker_EC2_Ubuntu", "Cluster": "k8s-cluster"}
