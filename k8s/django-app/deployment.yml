@@ -20,7 +20,7 @@ spec:
             - containerPort: 8000
           envFrom:
             - configMapRef:
-              name: django-test-config
+                name: django-test-config
           resources:
             requests:
               memory: "64Mi"
